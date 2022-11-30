@@ -27,8 +27,6 @@ import (
 	"sync"
 	"sync/atomic"
 	"time"
-
-	"github.com/panjf2000/ants/v2/internal"
 )
 
 // Pool accepts the tasks from client, it limits the total of goroutines to a given number by recycling goroutines.
@@ -130,7 +128,7 @@ func NewPool(size int, options ...Option) (*Pool, error) {
 
 	p := &Pool{
 		capacity: int32(size),
-		lock:     internal.NewSpinLock(),
+		lock:     NewSpinLock(),
 		options:  opts,
 	}
 	p.workerCache.New = func() interface{} {

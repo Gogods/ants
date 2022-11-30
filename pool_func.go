@@ -27,8 +27,6 @@ import (
 	"sync"
 	"sync/atomic"
 	"time"
-
-	"github.com/panjf2000/ants/v2/internal"
 )
 
 // PoolWithFunc accepts the tasks from client,
@@ -150,7 +148,7 @@ func NewPoolWithFunc(size int, pf func(interface{}), options ...Option) (*PoolWi
 	p := &PoolWithFunc{
 		capacity: int32(size),
 		poolFunc: pf,
-		lock:     internal.NewSpinLock(),
+		lock:     NewSpinLock(),
 		options:  opts,
 	}
 	p.workerCache.New = func() interface{} {
